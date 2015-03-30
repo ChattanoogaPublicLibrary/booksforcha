@@ -21,7 +21,7 @@ def parse_feed_list(s):
 
 def main():
     rsslist = parse_feed_list(RSS_FEED_LIST)
-    schedule.every(10).seconds.do(load_feed, rsslist)
+    schedule.every().hour.do(load_feed, rsslist)
     schedule.every(5).minutes.do(send_queued_tweet)
 
     while True:
