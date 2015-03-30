@@ -21,7 +21,7 @@ def send_tweet(info, url):
 
         api = tweepy.API(auth)
 
-        api.update_status(message(info, url))
+        api.update_status(status=message(info, url))
 
         return True
     except tweepy.error.TweepError:
