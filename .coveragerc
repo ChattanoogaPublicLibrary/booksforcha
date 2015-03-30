@@ -1,0 +1,4 @@
+[run]
+omit = booksforcha/test/*
+[report]
+omit = *third_party*

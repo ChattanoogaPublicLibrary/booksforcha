@@ -1,0 +1,4 @@
+feedparser==5.1.3
+schedule==0.3.1
+subredis==0.0.5
+tweepy==3.3.0
