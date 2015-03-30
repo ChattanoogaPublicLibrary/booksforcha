@@ -48,7 +48,6 @@ coverage:
 	RSS_FEED_LIST='' REDIS_KEYSPACE='BFC_TEST' REDIS_URL='redis://localhost:6379' CONSUMER_KEY='' CONSUMER_SECRET='' ACCESS_TOKEN='' ACCESS_TOKEN_SECRET='' coverage run --source booksforcha setup.py test
 	coverage report -m
 	coverage html
-	open htmlcov/index.html
 
 sniffer:
 	RSS_FEED_LIST='' REDIS_KEYSPACE='BFC_TEST' REDIS_URL='redis://localhost:6379' CONSUMER_KEY='' CONSUMER_SECRET='' ACCESS_TOKEN='' ACCESS_TOKEN_SECRET='' sniffer
