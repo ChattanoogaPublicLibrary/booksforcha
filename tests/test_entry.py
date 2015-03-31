@@ -28,19 +28,39 @@ class TestEntry(unittest.TestCase):
 
     def test_get_call_number(self):
         cn_result_lower = entry.get_call_number(
-            'http://catalog.lib.chattanooga.gov/\
-            polaris/search/title.aspx?cn=1035380')
+            ('http://catalog.lib.chattanooga.gov/'
+             'polaris/search/title.aspx?cn=1035380'))
         self.assertEqual(1035380, cn_result_lower)
 
         cn_result_upper = entry.get_call_number(
-            'http://catalog.lib.chattanooga.gov/\
-            polaris/view.aspx?CN=1035380')
+            ('http://catalog.lib.chattanooga.gov/'
+             'polaris/view.aspx?CN=1035380'))
         self.assertEqual(1035380, cn_result_upper)
 
         cn_result_none = entry.get_call_number(
-            'http://catalog.lib.chattanooga.gov/\
-            polaris/view.aspx')
+            ('http://catalog.lib.chattanooga.gov/'
+             'polaris/view.aspx'))
+
         self.assertEqual(None, cn_result_none)
+
+    def test_generate_view_url(self):
+        self.assertEqual(
+            'http://catalog.lib.chattanooga.gov/polaris',
+            os.environ['BASE_URL'])
+
+        self.assertEqual(
+            entry.generate_view_url(1035380),
+            'http://catalog.lib.chattanooga.gov/polaris/view.aspx?CN=1035380')
+
+    def test_generate_title_url(self):
+        self.assertEqual(
+            'http://catalog.lib.chattanooga.gov/polaris',
+            os.environ['BASE_URL'])
+
+        self.assertEqual(
+            entry.generate_title_url(1035380),
+            ('http://catalog.lib.chattanooga.gov/'
+             'polaris/search/title.aspx?cn=1035380'))
 
     def test_key_hash(self):
         hsh = entry.key_hash('http://www.chattlibrary.org')

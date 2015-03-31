@@ -10,6 +10,7 @@ from urlparse import urlparse, parse_qs
 RECORD_EXPIRATION = 86400  # 1 day in seconds
 REDIS_KEYSPACE = os.environ['REDIS_KEYSPACE']
 REDIS_URL = os.environ['REDIS_URL']
+BASE_URL = os.environ['BASE_URL']
 
 
 conn = SubRedis(REDIS_KEYSPACE, redis.from_url(REDIS_URL))
@@ -25,6 +26,14 @@ def get_call_number(l):
         return int(result['cn'][0])
     else:
         return None
+
+
+def generate_view_url(callnum):
+    return BASE_URL + '/view.aspx?CN=' + str(callnum)
+
+
+def generate_title_url(callnum):
+    return BASE_URL + '/search/title.aspx?cn=' + str(callnum)
 
 
 def key_hash(k):
