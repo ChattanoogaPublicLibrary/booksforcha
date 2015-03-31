@@ -8,6 +8,8 @@ import os
 
 
 RSS_FEED_LIST = os.environ['RSS_FEED_LIST']
+LOAD_FEED_SECONDS = int(os.environ['LOAD_FEED_SECONDS'])
+SEND_QUEUED_TWEET_SECONDS = int(os.environ['SEND_QUEUED_TWEET_SECONDS'])
 
 
 def parse_feed_list(s):
@@ -21,8 +23,8 @@ def parse_feed_list(s):
 
 def main():
     rsslist = parse_feed_list(RSS_FEED_LIST)
-    schedule.every().hour.do(load_feed, rsslist)
-    schedule.every(5).minutes.do(send_queued_tweet)
+    schedule.every(LOAD_FEED_SECONDS).seconds.do(load_feed, rsslist)
+    schedule.every(SEND_QUEUED_TWEET_SECONDS).seconds.do(send_queued_tweet)
 
     while True:
         schedule.run_pending()
