@@ -4,6 +4,7 @@ import tweepy
 import os
 from entry import get_next_to_run, remove_from_runner, send_runner_to_queue
 import logging
+import HTMLParser
 
 CONSUMER_KEY = os.environ['CONSUMER_KEY']
 CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
@@ -15,7 +16,9 @@ log = logging.getLogger("ex")
 
 
 def message(info, url):
-    return (info + ' ' + url).encode('utf-8')
+    parser = HTMLParser.HTMLParser()
+    cleaned_info = parser.unescape(info)
+    return (cleaned_info + ' ' + url).encode('utf-8')
 
 
 def send_tweet(info, url):

@@ -15,6 +15,12 @@ class TestTwitter(unittest.TestCase):
         self.assertEqual(
             msg, 'Some Book - Sean Brewer http://www.example.com/4')
 
+        html_msg = twitter.message(
+            'Some Book &amp; Stuff - Sean Brewer', 'http://www.example.com/4')
+        self.assertEqual(
+            html_msg,
+            'Some Book & Stuff - Sean Brewer http://www.example.com/4')
+
     def test_send_tweet(self):
         self.assertFalse(twitter.send_tweet('title and author', 'url'))
 
