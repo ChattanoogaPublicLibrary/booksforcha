@@ -20,12 +20,12 @@ def parse_feed_list(s):
     else:
         return parsed
 
+schedule.every(LOAD_FEED_SECONDS).seconds.do(
+    load_feed, parse_feed_list(RSS_FEED_LIST))
+schedule.every(SEND_QUEUED_TWEET_SECONDS).seconds.do(send_queued_tweet)
+
 
 def main():
-    rsslist = parse_feed_list(RSS_FEED_LIST)
-    schedule.every(LOAD_FEED_SECONDS).seconds.do(load_feed, rsslist)
-    schedule.every(SEND_QUEUED_TWEET_SECONDS).seconds.do(send_queued_tweet)
-
     while True:
         schedule.run_pending()
         time.sleep(1)
