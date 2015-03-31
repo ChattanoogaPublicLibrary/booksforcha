@@ -45,12 +45,12 @@ test-all:
 	tox
 
 coverage:
-	RSS_FEED_LIST='' REDIS_KEYSPACE='BFC_TEST' REDIS_URL='redis://localhost:6379' CONSUMER_KEY='' CONSUMER_SECRET='' ACCESS_TOKEN='' ACCESS_TOKEN_SECRET='' coverage run --source booksforcha setup.py test
+	LOAD_FEED_SECONDS=10 SEND_QUEUED_TWEET_SECONDS=10 RSS_FEED_LIST='' REDIS_KEYSPACE='BFC_TEST' REDIS_URL='redis://localhost:6379' CONSUMER_KEY='' CONSUMER_SECRET='' ACCESS_TOKEN='' ACCESS_TOKEN_SECRET='' coverage run --source booksforcha setup.py test
 	coverage report -m
 	coverage html
 
 sniffer:
-	RSS_FEED_LIST='' REDIS_KEYSPACE='BFC_TEST' REDIS_URL='redis://localhost:6379' CONSUMER_KEY='' CONSUMER_SECRET='' ACCESS_TOKEN='' ACCESS_TOKEN_SECRET='' sniffer
+	LOAD_FEED_SECONDS=10 SEND_QUEUED_TWEET_SECONDS=10 RSS_FEED_LIST='' REDIS_KEYSPACE='BFC_TEST' REDIS_URL='redis://localhost:6379' CONSUMER_KEY='' CONSUMER_SECRET='' ACCESS_TOKEN='' ACCESS_TOKEN_SECRET='' sniffer
 
 docs:
 	rm -f docs/booksforcha.rst
