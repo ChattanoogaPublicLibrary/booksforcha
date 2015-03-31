@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 
-import schedule
+from apscheduler.schedulers.blocking import BlockingScheduler
 from feed import load_feed
 from twitter import send_queued_tweet
-import time
 import os
 
 
 RSS_FEED_LIST = os.environ['RSS_FEED_LIST']
 LOAD_FEED_SECONDS = int(os.environ['LOAD_FEED_SECONDS'])
 SEND_QUEUED_TWEET_SECONDS = int(os.environ['SEND_QUEUED_TWEET_SECONDS'])
+
+sched = BlockingScheduler()
 
 
 def parse_feed_list(s):
@@ -20,15 +21,19 @@ def parse_feed_list(s):
     else:
         return parsed
 
-schedule.every(LOAD_FEED_SECONDS).seconds.do(
-    load_feed, parse_feed_list(RSS_FEED_LIST))
-schedule.every(SEND_QUEUED_TWEET_SECONDS).seconds.do(send_queued_tweet)
+
+@sched.scheduled_job('interval', seconds=LOAD_FEED_SECONDS)
+def feed_loader():
+    load_feed(parse_feed_list(RSS_FEED_LIST))
+
+
+@sched.scheduled_job('interval', seconds=SEND_QUEUED_TWEET_SECONDS)
+def tweet():
+    send_queued_tweet()
 
 
 def main():
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+    sched.start()
 
 
 def __main__():
