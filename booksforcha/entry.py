@@ -5,6 +5,7 @@ from subredis import SubRedis
 import pickle
 import hashlib
 import os
+from urlparse import urlparse, parse_qs
 
 RECORD_EXPIRATION = 86400  # 1 day in seconds
 REDIS_KEYSPACE = os.environ['REDIS_KEYSPACE']
@@ -12,6 +13,18 @@ REDIS_URL = os.environ['REDIS_URL']
 
 
 conn = SubRedis(REDIS_KEYSPACE, redis.from_url(REDIS_URL))
+
+
+def get_call_number(l):
+    u = urlparse(l)
+    result = parse_qs(u.query)
+
+    if 'CN' in result:
+        return int(result['CN'][0])
+    elif 'cn' in result:
+        return int(result['cn'][0])
+    else:
+        return None
 
 
 def key_hash(k):

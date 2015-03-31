@@ -26,6 +26,22 @@ class TestEntry(unittest.TestCase):
     def tearDown(self):
         self.conn.flushdb()
 
+    def test_get_call_number(self):
+        cn_result_lower = entry.get_call_number(
+            'http://catalog.lib.chattanooga.gov/\
+            polaris/search/title.aspx?cn=1035380')
+        self.assertEqual(1035380, cn_result_lower)
+
+        cn_result_upper = entry.get_call_number(
+            'http://catalog.lib.chattanooga.gov/\
+            polaris/view.aspx?CN=1035380')
+        self.assertEqual(1035380, cn_result_upper)
+
+        cn_result_none = entry.get_call_number(
+            'http://catalog.lib.chattanooga.gov/\
+            polaris/view.aspx')
+        self.assertEqual(None, cn_result_none)
+
     def test_key_hash(self):
         hsh = entry.key_hash('http://www.chattlibrary.org')
         self.assertEqual('bfc_f746128de6c136fe5977ab8c746202d4', hsh)
