@@ -29,7 +29,7 @@ def send_tweet(info, url):
 
         return True
     except tweepy.error.TweepError as tweeperr:
-        log.error("There was an error: " + tweeperr)
+        log.error("There was an error: " + str(tweeperr.reason))
         return False
 
 
