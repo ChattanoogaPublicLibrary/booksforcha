@@ -10,6 +10,7 @@ RECORD_EXPIRATION = 86400  # 1 day in seconds
 REDIS_KEYSPACE = os.environ['REDIS_KEYSPACE']
 REDIS_URL = os.environ['REDIS_URL']
 
+
 conn = SubRedis(REDIS_KEYSPACE, redis.from_url(REDIS_URL))
 
 

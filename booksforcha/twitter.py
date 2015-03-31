@@ -3,11 +3,15 @@
 import tweepy
 import os
 from entry import get_next_to_run, remove_from_runner, send_runner_to_queue
+import logging
 
 CONSUMER_KEY = os.environ['CONSUMER_KEY']
 CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 ACCESS_TOKEN_SECRET = os.environ['ACCESS_TOKEN_SECRET']
+
+logging.basicConfig(level=logging.INFO)
+log = logging.getLogger("ex")
 
 
 def message(info, url):
@@ -24,7 +28,8 @@ def send_tweet(info, url):
         api.update_status(status=message(info, url))
 
         return True
-    except tweepy.error.TweepError:
+    except tweepy.error.TweepError as tweeperr:
+        log.error("There was an error: " + tweeperr)
         return False
 
 
