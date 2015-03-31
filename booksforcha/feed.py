@@ -5,7 +5,7 @@ import entry
 import logging
 
 logging.basicConfig(level=logging.INFO)
-log = logging.getLogger("ex")
+log = logging.getLogger(__name__)
 
 
 def compile_feeds(rsslist):
