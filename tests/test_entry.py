@@ -62,6 +62,31 @@ class TestEntry(unittest.TestCase):
             ('http://catalog.lib.chattanooga.gov/'
              'polaris/search/title.aspx?cn=1035380'))
 
+    def test_rss_url_to_title_url(self):
+        rss_to_title = entry.rss_url_to_title_url(
+            ('http://catalog.lib.chattanooga.gov/'
+             'polaris/view.aspx?CN=1035380'))
+
+        self.assertEqual(rss_to_title,
+                         ('http://catalog.lib.chattanooga.gov/'
+                          'polaris/search/title.aspx?cn=1035380'))
+
+        none_url = entry.rss_url_to_title_url(
+            ('http://catalog.lib.chattanooga.gov/'
+             'polaris/view.aspx'))
+
+        self.assertEqual(none_url,
+                         ('http://catalog.lib.chattanooga.gov/'
+                          'polaris/view.aspx'))
+
+        title_to_title = entry.rss_url_to_title_url(
+            ('http://catalog.lib.chattanooga.gov/'
+             'polaris/search/title.aspx?cn=1035380'))
+
+        self.assertEqual(title_to_title,
+                         ('http://catalog.lib.chattanooga.gov/'
+                          'polaris/search/title.aspx?cn=1035380'))
+
     def test_key_hash(self):
         hsh = entry.key_hash('http://www.chattlibrary.org')
         self.assertEqual('bfc_f746128de6c136fe5977ab8c746202d4', hsh)

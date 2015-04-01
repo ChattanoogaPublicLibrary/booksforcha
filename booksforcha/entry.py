@@ -36,6 +36,15 @@ def generate_title_url(callnum):
     return BASE_URL + '/search/title.aspx?cn=' + str(callnum)
 
 
+def rss_url_to_title_url(l):
+    callnum = get_call_number(l)
+
+    if callnum is None:
+        return l
+    else:
+        return generate_title_url(callnum)
+
+
 def key_hash(k):
     return "bfc_" + hashlib.md5(k).hexdigest()
 
