@@ -2,7 +2,8 @@
 
 import tweepy
 import os
-from entry import get_next_to_run, remove_from_runner, send_runner_to_queue
+from entry import get_next_to_run, remove_from_runner, send_runner_to_queue, \
+    rss_url_to_title_url
 import logging
 import HTMLParser
 
@@ -39,7 +40,7 @@ def send_tweet(info, url):
 def send_queued_tweet():
     next_entry = get_next_to_run()
 
-    if send_tweet(next_entry.title, next_entry.link):
+    if send_tweet(next_entry.title, rss_url_to_title_url(next_entry.link)):
         return remove_from_runner(next_entry)
     else:
         send_runner_to_queue(next_entry)
