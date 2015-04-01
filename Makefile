@@ -39,7 +39,7 @@ lint:
 	flake8 booksforcha tests
 
 test:
-	BASE_URL='http://catalog.lib.chattanooga.gov/polaris' LOAD_FEED_SECONDS=10 SEND_QUEUED_TWEET_SECONDS=10 RSS_FEED_LIST='' REDIS_KEYSPACE='BFC_TEST' REDIS_URL='redis://localhost:6379' CONSUMER_KEY='' CONSUMER_SECRET='' ACCESS_TOKEN='' ACCESS_TOKEN_SECRET='' nosetests
+	BASE_URL='http://catalog.lib.chattanooga.gov/polaris' LOAD_FEED_SECONDS=10 SEND_QUEUED_TWEET_SECONDS=10 RSS_FEED_LIST='' REDIS_KEYSPACE='BFC_TEST' REDIS_URL='redis://localhost:6379' CONSUMER_KEY='' CONSUMER_SECRET='' ACCESS_TOKEN='' ACCESS_TOKEN_SECRET='' nosetests --randomize
 
 test-all:
 	tox
@@ -50,7 +50,7 @@ coverage:
 	coverage html
 
 sniffer:
-	BASE_URL='http://catalog.lib.chattanooga.gov/polaris' LOAD_FEED_SECONDS=10 SEND_QUEUED_TWEET_SECONDS=10 RSS_FEED_LIST='' REDIS_KEYSPACE='BFC_TEST' REDIS_URL='redis://localhost:6379' CONSUMER_KEY='' CONSUMER_SECRET='' ACCESS_TOKEN='' ACCESS_TOKEN_SECRET='' sniffer
+	BASE_URL='http://catalog.lib.chattanooga.gov/polaris' LOAD_FEED_SECONDS=10 SEND_QUEUED_TWEET_SECONDS=10 RSS_FEED_LIST='' REDIS_KEYSPACE='BFC_TEST' REDIS_URL='redis://localhost:6379' CONSUMER_KEY='' CONSUMER_SECRET='' ACCESS_TOKEN='' ACCESS_TOKEN_SECRET='' sniffer -x--randomize
 
 docs:
 	rm -f docs/booksforcha.rst
